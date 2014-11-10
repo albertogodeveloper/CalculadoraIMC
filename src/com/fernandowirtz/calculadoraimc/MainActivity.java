@@ -17,10 +17,14 @@ public class MainActivity extends ActionBarActivity {
 	// Atributos:
 	private static final String LOGTAG = "MainActivity";
 	private IndiceMasaCorporal imc;
-	EditText editPeso;
-	EditText editAltura;
-	TextView textViewResultado;
-	TextView textViewIMC;
+	private EditText editPeso;
+	private EditText editAltura;
+	private TextView textViewResultado;
+	private TextView textViewIMC;
+	private String peso;
+	private String altura;
+	private String resultado;
+	private String valorIMC;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +44,6 @@ public class MainActivity extends ActionBarActivity {
 	 */
 	public void onButtonClickCalcularIMC(View v) {
 
-		String peso;
-		String altura;
-		String resultado;
-		String valorIMC;
 		try {
 
 			peso = editPeso.getText().toString();
@@ -96,4 +96,25 @@ public class MainActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	// Para que al girar la pantalla no se pierdan los datos...
+	@Override
+	protected void onSaveInstanceState(Bundle guardarEstado) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(guardarEstado);
+		guardarEstado.putString("resultado", resultado);
+		guardarEstado.putString("valorIMC", valorIMC);
+
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle recEstado) {
+		// TODO Auto-generated method stub
+		super.onRestoreInstanceState(recEstado);
+		resultado = recEstado.getString("resultado");
+		valorIMC = recEstado.getString("valorIMC");
+
+		textViewResultado.setText(resultado);
+		textViewIMC.setText(valorIMC);
+
+	}
 }
